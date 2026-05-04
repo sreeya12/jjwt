@@ -13,9 +13,11 @@ env:
 jobs:
   oracle:
     strategy:
+      fail-fast: false
       matrix:
         java: [ '17' ]
-    runs-on: 'ubuntu-latest'
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     name: jdk-${{ matrix.java }}-oracle
     steps:
       - uses: actions/checkout@v4
@@ -39,9 +41,11 @@ jobs:
 
   temurin:
     strategy:
+      fail-fast: false
       matrix:
         java: [ '8', '11', '17', '18' ]
-    runs-on: 'ubuntu-latest'
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     name: jdk-${{ matrix.java }}-temurin
     steps:
       - uses: actions/checkout@v4
@@ -67,9 +71,11 @@ jobs:
 
   zulu:
     strategy:
+      fail-fast: false
       matrix:
         java: [ '7', '8', '9', '11', '12', '13', '14', '15', '16', '17', '18', '21' ]
-    runs-on: 'ubuntu-latest'
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     env:
       JDK_MAJOR_VERSION: ${{ matrix.java }}
     name: jdk-${{ matrix.java }}-zulu
@@ -99,7 +105,11 @@ jobs:
 
   # ensure all of our files have the correct/updated license header
   license-check:
-    runs-on: 'ubuntu-latest'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -120,7 +130,11 @@ jobs:
     # (commented out for now - see the comments in 'Wait to start' below for why.  Keeping this here as a placeholder
     # as it may be better to use instead of an artificial delay once we no longer need to build on JDK 7):
     #needs: zulu # wait until others finish so a coverage failure doesn't cancel others accidentally
-    runs-on: 'ubuntu-latest'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK
