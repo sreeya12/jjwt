@@ -27,9 +27,21 @@ jobs:
           distribution: oracle
           java-version: ${{ matrix.java }}
       - name: Install softhsm2
-        run: sudo apt-get install -y softhsm2
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y softhsm2
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install softhsm
+          fi
+        shell: bash
       - name: Install opensc
-        run: sudo apt-get install -y opensc
+        run: |
+           if [ "${RUNNER_OS}" == "Linux" ]; then
+             sudo apt-get update && sudo apt-get install -y opensc
+           elif [ "${RUNNER_OS}" == "macOS" ]; then
+             brew install opensc
+           fi
+        shell: bash
       - name: Ensure SoftHSM user configuration
         run: impl/src/test/scripts/softhsm configure
       - name: Populate SoftHSM with JJWT test keys
@@ -57,9 +69,21 @@ jobs:
           cache: 'maven'
           check-latest: true
       - name: Install softhsm2
-        run: sudo apt-get install -y softhsm2
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y softhsm2
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install softhsm
+          fi
+        shell: bash
       - name: Install opensc
-        run: sudo apt-get install -y opensc
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y opensc
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install opensc
+          fi
+        shell: bash
       - name: Ensure SoftHSM user configuration
         run: impl/src/test/scripts/softhsm configure
       - name: Populate SoftHSM with JJWT test keys
@@ -89,9 +113,21 @@ jobs:
           cache: 'maven'
           check-latest: true
       - name: Install softhsm2
-        run: sudo apt-get install -y softhsm2
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y softhsm2
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install softhsm
+          fi
+        shell: bash
       - name: Install opensc
-        run: sudo apt-get install -y opensc
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y opensc
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install opensc
+          fi
+        shell: bash
       - name: Ensure SoftHSM user configuration
         run: impl/src/test/scripts/softhsm configure
       - name: Populate SoftHSM with JJWT test keys
@@ -145,9 +181,21 @@ jobs:
           cache: 'maven'
           check-latest: true
       - name: Install softhsm2
-        run: sudo apt-get install -y softhsm2
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y softhsm2
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install softhsm
+          fi
+        shell: bash
       - name: Install opensc
-        run: sudo apt-get install -y opensc
+        run: |
+          if [ "${RUNNER_OS}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y opensc
+          elif [ "${RUNNER_OS}" == "macOS" ]; then
+            brew install opensc
+          fi
+        shell: bash
       - name: Ensure SoftHSM user configuration
         run: impl/src/test/scripts/softhsm configure
       - name: Populate SoftHSM with JJWT test keys
